@@ -14,24 +14,29 @@ navigator.mediaDevices.getUserMedia(constraints)
   console.log(err)
 })
 
-Quagga.init({
-    inputStream : {
-      name : "Live",
-      type : "LiveStream",
-      target: '#gum-local'    // Or '#yourElement' (optional)
+Quagga.init(
+  {
+    inputStream: {
+      name: 'Live',
+      type: 'LiveStream',
+      target: '#gum-local'
     },
-    decoder : {
+    decoder: {
       // readers : ['ean_reader','ean_8_reader','code_39_reader','code_39_vin_reader','codabar_reader','upc_reader','upc_e_reader','code_128_reader'],
-      readers : ['ean_reader'],
+      readers: ['ean_reader'],
       config: {}
     }
-  }, function(err) {
-      if (err) {
-          console.log(err);
-          return
-      }
-      console.log("Initialization finished. Ready to start");
-      Quagga.start();
+  },
+  function (err) {
+    if (err) {
+      console.log(err)
+      return
+    }
+    console.log('Initialization finished. Ready to start')
+    for (var key in results) { // to can empty the results object
+      delete results[key]
+    }
+      Quagga.start()
   })
 
   Quagga.onProcessed(function(result) {
@@ -65,11 +70,9 @@ Quagga.init({
 
           console.log(results)
           var frequency = Object.values(results)
-          var totalScans = frequency.reduce(function(a, b) {
-            return a + b
-          })
-          // console.log(totalScans)
-          // console.log('freq', frequency)
+          // var totalScans = frequency.reduce(function(a, b) {
+          //   return a + b
+          // })
           var maxFrequency = Math.max.apply(null, frequency)
           // console.log('maxFrequency', maxFrequency)
           // if (maxFrequency > (0.7 * totalScans) && totalScans > 20) {
