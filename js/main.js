@@ -1,3 +1,4 @@
+$(function () {
 var results = {}
 var video = $("#gum-local")[0]
 var constraints = { audio: false, video: true }
@@ -99,3 +100,4 @@ Quagga.init(
       console.log('start')
       barcodeStart()
     })
+})
