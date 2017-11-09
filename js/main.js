@@ -1,19 +1,25 @@
 var results = {}
 var video = $("#gum-local")[0]
-
 var constraints = { audio: false, video: true }
 
-navigator.mediaDevices.getUserMedia(constraints)
+camstart('begin')
+function camstart (a) {
+  if (a === 'begin') {
+  navigator.mediaDevices.getUserMedia(constraints)
 
-.then(function (stream) {
-  console.log('activated', stream)
-  video.srcObject = stream
-})
+  .then(function (stream) {
+    console.log('activated', stream)
+    video.srcObject = stream
+  })
 
-.catch(function (err) {
-  console.log(err)
-})
+  .catch(function (err) {
+    console.log(err)
+  })
+  }
+}
 
+barcodeStart()
+function barcodeStart () {
 Quagga.init(
   {
     inputStream: {
@@ -38,6 +44,7 @@ Quagga.init(
     }
       Quagga.start()
   })
+}
 
   Quagga.onProcessed(function(result) {
         var drawingCtx = Quagga.canvas.ctx.overlay,
@@ -76,6 +83,19 @@ Quagga.init(
           var maxFrequency = Math.max.apply(null, frequency)
           // console.log('maxFrequency', maxFrequency)
           // if (maxFrequency > (0.7 * totalScans) && totalScans > 20) {
-          console.log('max',Object.keys(results).find(key => results[key] === maxFrequency))
+          var mostScannedBarcode = Object.keys(results).find(key => results[key] === maxFrequency)
+          console.log('max', mostScannedBarcode)
+          $('#barcodeField').val(mostScannedBarcode)
         // }
-    });
+
+    })
+
+    $('#stopScan').click(function (){
+      console.log('stop')
+      Quagga.stop()
+    })
+
+    $('#startScan').click(function (){
+      console.log('start')
+      barcodeStart()
+    })

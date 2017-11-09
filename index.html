@@ -10,11 +10,11 @@
     <video id="gum-local" autoplay playsinline style='opacity:0.8; object-fit: contain;'></video>
     <canvas class="drawingBuffer" width="640" height="480" style='position:absolute; top:0px; left:0px; float:left;'></canvas>
     </div>
-    <button type="button">Start</button>
-    <button type="button">Stop</button>
+    <button id ="startScan" type="button">Start input</button>
+    <button id="stopScan" type="button">Stop input</button>
     <form action="/action_page.php">
       <label for="barcode">Barcode</label>
-      <input type="number" name="barcode" value="Scanned number"><br>
+      <input id="barcodeField" type="number" name="barcode"><br>
       <input type="submit" value="Submit">
     </form>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
